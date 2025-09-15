@@ -54,6 +54,8 @@ include "../includes/header.php"
             //echo $fullName;
             echo strtolower($fullName);
 
+            // test comment
+
             //var_dump(str_split($fullName));
 
             echo $fullName[0];
