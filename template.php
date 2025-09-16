@@ -14,18 +14,18 @@ $test = "Michael";
 </head>
 <body>
 <?php
-include "includes/header.php"
+include "../includes/header.php"
 ?>
 <div id="three-column">
     <?php
-    include "includes/navigation.php"
+    include "../includes/navigation.php"
     ?>
     <main>
         Todo: Put file contents here.
     </main>
 </div>
 <?php
-include "includes/footer.php"
+include "../includes/footer.php"
 ?>
 </body>
 </html>
