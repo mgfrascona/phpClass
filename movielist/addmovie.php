@@ -18,6 +18,7 @@
         catch (mysqli_sql_exception $ex) {
             echo $ex;
         }
+
     }
 
 ?><!doctype html>
