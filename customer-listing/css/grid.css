@@ -1,0 +1,78 @@
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 80%;
+    margin: 10px auto;
+}
+
+td, th {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+table a {
+    color: #0000ff;
+}
+
+table a:hover {
+    color: #7b7bff;
+}
+
+td {
+    border: 1px solid black;
+}
+
+.hidden {
+    display: none;
+}
+
+.grid-header { grid-area: grid-header; }
+.first-name { grid-area: first-name; }
+.first-name-input { grid-area: first-name-input; }
+.last-name { grid-area: last-name; }
+.last-name-input { grid-area: last-name-input; }
+.phone-number { grid-area: phone-number; }
+.phone-number-input { grid-area: phone-number-input; }
+.email { grid-area: email; }
+.email-input { grid-area: email-input; }
+.address { grid-area: address; }
+.address-input { grid-area: address-input; }
+.city { grid-area: city; }
+.city-input { grid-area: city-input; }
+.state { grid-area: state; }
+.state-input { grid-area: state-input; }
+.zip { grid-area: zip; }
+.zip-input { grid-area: zip-input; }
+.password { grid-area: password; }
+.password-input { grid-area: password-input; }
+.grid-footer { grid-area: grid-footer; }
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+                "grid-header grid-header"
+                "first-name first-name-input"
+                "last-name last-name-input"
+                "phone-number phone-number-input"
+                "email email-input"
+                "address address-input"
+                "city city-input"
+                "state state-input"
+                "zip zip-input"
+                "password password-input"
+                "grid-footer grid-footer"
+;
+    border: 1px solid black;
+}
+
+.grid-container > div {
+    border: 1px solid black;
+    text-align: center;
+}
+
+.grid-container input[type="text"] {
+    width: 98%;
+    margin: 2px 0;
+}

@@ -12,18 +12,7 @@ error_reporting(E_ALL);
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Michael's Website</title>
     <link rel="stylesheet" href="/css/base.css">
-    <style>
-        table {
-            border: 1px solid black;
-            border-collapse: collapse;
-            table-layout: fixed;
-            width: 80%;
-            margin: 10px auto;
-        }
-        td {
-            border: 1px solid black;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/grid.css">
 </head>
 <body>
 <?php
@@ -53,7 +42,9 @@ while ($row = mysqli_fetch_array($result)) {
 
     echo "<tr>";
     echo "      <td>$movieID</td>";
-    echo "      <td>$movieTitle</td>";
+    echo "      <td>";
+    echo "          <a href=\"movie.php?id=$movieID\">$movieTitle</a>";
+    echo "      </td>";
     echo "      <td>$movieRating</td>";
     echo "</tr>";
 }

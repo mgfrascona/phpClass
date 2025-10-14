@@ -1,0 +1,20 @@
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 80%;
+    margin: 10px auto;
+}
+table a {
+    color: #0000ff;
+}
+table a:hover {
+    color: #7b7bff;
+}
+td {
+    border: 1px solid black;
+}
+
+.hidden {
+    display: none;
+}

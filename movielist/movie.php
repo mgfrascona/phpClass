@@ -1,27 +1,45 @@
 <?php
 
-    $errorMessage = "";
-
-    if (!empty($_POST["txtTitle"]) && !empty($_POST["txtRating"]))
+    if (empty($_GET["id"]))
     {
-        include "../includes/db.php";
-        $con = getDBConnection();
+        header("Location: /movielist");
+    }
 
+    include "../includes/db.php";
+    $con = getDBConnection();
+
+    $movieID = $_GET["id"];
+    echo $movieID;
+
+    try {
+        $query = "SELECT * FROM movielist WHERE MovieID = ?";
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "s", $movieID);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_array($result);
+        $movieTitle = $row["MovieTitle"];
+        $movieRating = $row["MovieRating"];
+    }
+    catch (mysqli_sql_exception $ex) {
+        echo $ex;
+    }
+
+    if (!empty($_POST["txtTitle"]) && !empty($_POST["txtRating"])) {
+        // Actual update (update the db)
         $txtTitle = $_POST["txtTitle"];
         $txtRating = $_POST["txtRating"];
 
         try {
-            $query = "INSERT INTO movielist (MovieTitle, MovieRating) VALUES (?, ?);";
+            $query = "UPDATE movielist SET MovieTitle = ?, MovieRating = ? WHERE MovieID = ?;";
             $stmt = mysqli_prepare($con, $query);
-            mysqli_stmt_bind_param($stmt, "ss", $txtTitle, $txtRating);
+            mysqli_stmt_bind_param($stmt, "sss", $txtTitle, $txtRating, $movieID);
             mysqli_stmt_execute($stmt);
 
             header("Location: /movielist");
-        }
-        catch (mysqli_sql_exception $ex) {
+        } catch (mysqli_sql_exception $ex) {
             echo $ex;
         }
-
     }
 
 ?><!doctype html>
@@ -47,15 +65,15 @@ include "../includes/header.php"
         <form method="post">
             <div class="grid-container">
                 <div class="grid-header">
-                    <h3>Add new movie:</h3>
+                    <h3>Update movie:</h3>
                 </div>
 
                 <div class="movie-title">
-                     <label for="txtTitle">Movie Title</label>
+                    <label for="txtTitle">Movie Title</label>
                 </div>
 
                 <div class="title-input">
-                    <input type="text" name="txtTitle" id="txtTitle">
+                    <input type="text" name="txtTitle" id="txtTitle" value="<?=$movieTitle?>">
                 </div>
 
                 <div class="movie-rating">
@@ -63,7 +81,7 @@ include "../includes/header.php"
                 </div>
 
                 <div class="rating-input">
-                    <input type="text" name="txtRating" id="txtRating">
+                    <input type="text" name="txtRating" id="txtRating" value="<?=$movieRating?>">
                 </div>
 
                 <div class="error <?php echo $errorMessage == "" ? "hidden" : "" ?>">
@@ -71,7 +89,8 @@ include "../includes/header.php"
                 </div>
 
                 <div class="grid-footer">
-                     <input type="submit" value="Add Movie">
+                    <input type="submit" value="Update Movie">
+                    <input type="button" value="Delete Movie" id="delete">
                 </div>
             </div>
         </form>
@@ -80,5 +99,11 @@ include "../includes/header.php"
 <?php
 include "../includes/footer.php"
 ?>
+<script>
+    const deleteButton = document.querySelector('#delete')
+    deleteButton.addEventListener('click', () => {
+        window.location = './delete.php?id=<?=$movieID?>'
+    })
+</script>
 </body>
 </html>
