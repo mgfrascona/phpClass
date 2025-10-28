@@ -102,7 +102,9 @@ include "../includes/footer.php"
 <script>
     const deleteButton = document.querySelector('#delete')
     deleteButton.addEventListener('click', () => {
-        window.location = './delete.php?id=<?=$movieID?>'
+        if (confirm("Are you sure you want to delete?")) {
+            window.location = './delete.php?id=<?=$movieID?>'
+        }
     })
 </script>
 </body>
