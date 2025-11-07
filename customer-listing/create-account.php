@@ -1,5 +1,7 @@
 <?php
 
+    $customerKey = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+
     if (!empty($_GET["txtFirstName"]) &&
         !empty($_GET["txtLastName"]) &&
         !empty($_GET["txtEmail"]) &&
@@ -17,12 +19,12 @@
         $txtCity = $_GET["txtCity"];
         $stateInitials = $_GET["stateInitials"];
         $txtZip = $txtZip = $_GET["txtZip"];
-        $txtPassword = $_GET["txtPassword"];
+        $txtPassword = password_hash($_GET["txtPassword"], PASSWORD_DEFAULT);
 
         try {
-            $query = "INSERT INTO customerListing (FirstName, LastName, Phone, Email, Address, City, State, Zip, Password, CustomerID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            $query = "INSERT INTO customerListing (FirstName, LastName, Phone, Email, Address, City, State, Zip, Password, CustomerID, CustomerKey) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             $stmt = mysqli_prepare($con, $query);
-            mysqli_stmt_bind_param($stmt, "sssssssssi", $txtFirstName, $txtLastName, $txtPhone, $txtEmail, $txtAddress, $txtCity, $stateInitials, $txtZip, $txtPassword, $customerID);
+            mysqli_stmt_bind_param($stmt, "sssssssssis", $txtFirstName, $txtLastName, $txtPhone, $txtEmail, $txtAddress, $txtCity, $stateInitials, $txtZip, $txtPassword, $customerID, $customerKey);
             mysqli_stmt_execute($stmt);
 
             header("Location:index.php");
